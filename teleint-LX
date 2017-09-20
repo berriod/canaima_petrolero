@@ -1,0 +1,48 @@
+#! /bin/sh
+## TeleINT-CP
+## Script desarrollado para pruebas conceptuales del
+## Proyecto Plataforma de Escritorio TIL en PDVSA. Equipo Tecnico Centro-Intevep
+
+if [ -f /media/netapp02/aplic/TeleInt/TeleInt2.dat ]; then
+cd $HOME
+cp -R /media/netapp02/aplic/TeleInt/TeleInt2.dat . 
+iconv -f ISO-8859-15 -t UTF-8 TeleInt2.dat > .TeleInt2.txt 
+zenity --info --title="Directorio PDVSA-Intevep" --text="Directorio Intevep Actualizado" 2>/dev/null;
+else
+if [ -f $HOME/.TeleInt2.txt ]; then
+zenity --info --title="Directorio PDVSA-Intevep" --text="Verifique la Conexion con Netapp02/aplic para actualizar" 2>/dev/null;
+else
+zenity --info --title="Directorio PDVSA-Intevep" --text="Verifique la Conexion con Netapp02/aplic para instalar" 2>/dev/null;
+exit 1
+
+## Instalacion / Actualizacion TeleINT-CP
+#if TEMPUSER=$(zenity --entry  --title="Directorio PDVSA-Intevep" --width=400 --text="Ingrese su Indicador" --entry-text=$USER 2>/dev/null); then
+#if TEMPASS=$(zenity --entry  --title="Directorio PDVSA-Intevep" --width=400 --hide-text --text="Ingrese su clave PDVSA2000" 2>/dev/null); then
+#cd $HOME
+#cp -r /media/netapp02/aplic/TeleInt/TeleInt2.dat .
+#smbget -u $TEMPUSER -w PDVSA2000 -p $TEMPASS smb://netapp02.pdvsa.com/Aplic/TeleInt/TeleInt2.dat
+##file TeleInt2.dat ## Muestra el tipo de codificacion del archivo
+#iconv -f ISO-8859-15 -t UTF-8 TeleInt2.dat > .TeleInt2.txt
+#else
+#exit 1
+#fi
+#else
+#exit 1
+fi
+fi
+
+AUX=0
+while [ $AUX != 1 ]
+do
+if REFERENCIA=$(zenity --entry --title="Directorio PDVSA-Intevep" --width=400 --text "Indique el patron de busqueda" 2>/dev/null); then
+REFERENCIA=$(echo $REFERENCIA |sed 's, ,.*,g')
+cat .TeleInt2.txt |grep -i $REFERENCIA > .temp_result
+if zenity --text-info --title="Resultados en Directorio PDVSA-Intevep" --width=1000 --height=400 --filename="$HOME/.temp_result" --ok-label="Nueva Busqueda" --cancel-label="Salir" 2>/dev/null; then
+	AUX=0
+	else
+	exit 1
+	fi
+else
+exit 1
+fi
+done
