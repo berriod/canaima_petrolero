@@ -7,7 +7,7 @@ if [ -f /media/netapp02/aplic/TeleInt/TeleInt2.dat ]; then
 cd $HOME
 cp -R /media/netapp02/aplic/TeleInt/TeleInt2.dat . 
 iconv -f ISO-8859-15 -t UTF-8 TeleInt2.dat > .TeleInt2.txt 
-zenity --info --title="Directorio Intevep" --text="Directorio Intevep Actualizado" 2>/dev/null;
+zenity --info --title="Directorio PDVSA-Intevep" --text="Directorio Intevep Actualizado" 2>/dev/null;
 else
 if [ -f $HOME/.TeleInt2.txt ]; then
 zenity --info --title="Directorio PDVSA-Intevep" --text="Verifique la Conexion con Netapp02/aplic para actualizar" 2>/dev/null;
