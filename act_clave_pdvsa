@@ -1,5 +1,5 @@
 #! /bin/sh
-## Actualizacion Clave PDVSA2000 V 1.1
+## Actualizacion Clave PDVSA2000 
 ## Script desarrollado para pruebas conceptuales del
 ## Proyecto Plataforma de Escritorio TIL en PDVSA. Equipo Tecnico Centro-Intevep
 
@@ -32,20 +32,3 @@ fi
 else
 exit 1
 fi
-##Mensajes de Error
-##Unable to get new password.
-##Could not connect to machine pdvsa.com: NT_STATUS_LOGON_FAILURE
-
-##Codigo python
-#cmd = pexpect.spawn ('smbpasswd -U ' + $USER + '-r ' + pdvsa.com)
-#cmd.expect ('Old SMB password:')
-#cmd.sendLine ($CLAVEVIEJ)
-#cmd.expect ('New SMB password:')
-#cmd.sendLine ($CLAVENUEV)
-#cmd.expect ('Retype new SMB password:')
-#cmd.sendLine ($CLAVENUEV)
-
-
-
-
-
