@@ -1,0 +1,51 @@
+#! /bin/sh
+## Actualizacion Clave PDVSA2000 V 1.1
+## Script desarrollado para pruebas conceptuales del
+## Proyecto Plataforma de Escritorio TIL en PDVSA. Equipo Tecnico Centro-Intevep
+
+## Ingreso de datos:
+if INDICADOR=$(zenity --entry --title="Cambio de Clave PDVSA2000" --text="Indicador a Actualizar:" --entry-text=$USER --width=300); then
+if CLAVEVIEJ=$(zenity --entry --title="Cambio de Clave PDVSA2000" --text="Indique la CLAVE ACTUAL de $INDICADOR:" --hide-text --width=300); then
+if CLAVENUEV=$(zenity --entry --title="Cambio de Clave PDVSA2000" --text="Indique la NUEVA CLAVE para $INDICADOR:" --hide-text --width=300); then
+if CLAVENUEV2=$(zenity --entry --title="Cambio de Clave PDVSA2000" --text="Confirme la NUEVA CLAVE:" --hide-text --width=300); then
+## Validacion datos:
+if [ "$CLAVENUEV" != "$CLAVENUEV2" ]; then
+zenity --warning --text="La nueva clave NO COINSIDE"; exit 1
+fi
+## Proceso:
+RESULT=$( (echo $CLAVEVIEJ; echo $CLAVENUEV; echo $CLAVENUEV) |smbpasswd -s -U $INDICADOR -r pdvsa.com )
+## Confirmacion de resultado:
+if [ "$RESULT" = "Password changed for user $INDICADOR" ]; then
+zenity --info --title="Cambio de Clave PDVSA2000" --text="Actualizada la clave para $INDICADOR!" --width=300
+else
+zenity --warning --text="ERROR: No se pudo actualizar la clave" --width=400
+fi
+else
+exit 1
+fi
+else
+exit 1
+fi
+else
+exit 1
+fi
+else
+exit 1
+fi
+##Mensajes de Error
+##Unable to get new password.
+##Could not connect to machine pdvsa.com: NT_STATUS_LOGON_FAILURE
+
+##Codigo python
+#cmd = pexpect.spawn ('smbpasswd -U ' + $USER + '-r ' + pdvsa.com)
+#cmd.expect ('Old SMB password:')
+#cmd.sendLine ($CLAVEVIEJ)
+#cmd.expect ('New SMB password:')
+#cmd.sendLine ($CLAVENUEV)
+#cmd.expect ('Retype new SMB password:')
+#cmd.sendLine ($CLAVENUEV)
+
+
+
+
+
